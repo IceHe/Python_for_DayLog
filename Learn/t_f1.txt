@@ -1,0 +1,10 @@
+<<
+Begin
+123
+abc
+ABC
+
+xyz
+...
+Ending
+>>
