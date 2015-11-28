@@ -220,7 +220,7 @@ if __name__ == '__main__':
     ##############################
     # output Time Stat
     ##############################
-    matches = re.findall(r'(<div><b># Time Stat<\/b><\/div>[\s\S]*(?:<div><br\/><\/div>))?', content, re.S)
+    matches = re.findall(r'(<div><b># Time Stat<\/b><\/div>[\s\S]*?(?:<div><br\/><\/div>))?', content, re.S)
     target_str = [s for s in matches if s != ''][0]
 
     mod_str = target_str
