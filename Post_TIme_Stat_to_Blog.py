@@ -116,12 +116,12 @@ def post_time_stat_to_blog(day):
 
 
 if __name__ == '__main__':
-    day = datetime(2015, 7, 1)
+    day = datetime(2015, 11, 1)
     if 1 != day.day:
         print('Error: day must be 1st of the month!')
         exit(1)
 
-    while day < datetime(2015, 11, 1):
+    while day < datetime(2015, 12, 1):
         post_time_stat_to_blog(day)
         day += timedelta(days = calendar.monthrange(day.year, day.month)[1])
     # post_daylog_to_blog(day)

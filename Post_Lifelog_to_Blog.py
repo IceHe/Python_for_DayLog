@@ -158,8 +158,8 @@ def post_daylog_to_blog(day):
 
 if __name__ == '__main__':
     # exit(0) # SWITCH
-    day = datetime(2015, 7, 1)
-    while day < datetime(2015, 8, 1):
+    day = datetime(2015, 11, 1)
+    while day < datetime(2015, 12, 1):
         post_daylog_to_blog(day)
         day += timedelta(days = 1)
     # post_daylog_to_blog(day)

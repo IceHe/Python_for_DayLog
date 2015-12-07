@@ -27,6 +27,10 @@ if __name__ == '__main__':
     import os
     os.system('mysql.server start')
 
+    # Wait for MySQL starting
+    import time
+    time.sleep(2)
+
     import mysql.connector
     conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
     cursor = conn.cursor()
