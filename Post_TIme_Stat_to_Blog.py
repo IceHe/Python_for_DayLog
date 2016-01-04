@@ -25,6 +25,7 @@ def post_time_stat_to_blog(day):
     cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_html_with_nbname.scpt "' \
           + note_name + '" "' + notebook_name + '" "' + html_export_path + '"'
     os.system(cmd)
+    print(cmd)
     print(html_export_path)
 
 
@@ -116,12 +117,26 @@ def post_time_stat_to_blog(day):
 
 
 if __name__ == '__main__':
-    day = datetime(2015, 11, 1)
+
+    # Single
+
+    today = datetime.now()
+    last_month_last_day = datetime(today.year, today.month, 1) - timedelta(days = 1)
+    last_month_1st = last_month_last_day - timedelta(days = calendar.monthrange(last_month_last_day.year, last_month_last_day.month)[1] - 1)
+
+    print(last_month_1st)
+    post_time_stat_to_blog(last_month_1st)
+
+    exit(0)
+
+
+    # Batch
+
+    day = datetime(2015, 12, 1)
     if 1 != day.day:
         print('Error: day must be 1st of the month!')
         exit(1)
 
-    while day < datetime(2015, 12, 1):
+    while day < datetime(2016, 1, 1):
         post_time_stat_to_blog(day)
         day += timedelta(days = calendar.monthrange(day.year, day.month)[1])
-    # post_daylog_to_blog(day)

@@ -35,7 +35,8 @@ def post_monthlog_to_blog(day, lifelog_dir):
     with codecs.open(month_log_path, 'w', 'utf-8') as f:
         f.write(content)
 
-    years_log_path = '%s/index.md' % lifelog_dir
+    # years_log_path = '%s/index.md' % lifelog_dir
+    years_log_path = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/_posts/lifelogs.md'
 
     month2yue = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 
@@ -157,9 +158,22 @@ def post_daylog_to_blog(day):
 
 
 if __name__ == '__main__':
-    # exit(0) # SWITCH
-    day = datetime(2015, 11, 1)
-    while day < datetime(2015, 12, 1):
+
+    # Single
+
+    today = datetime.now()
+    last_month_last_day = datetime(today.year, today.month, 1) - timedelta(days = 1)
+    last_month_1st = last_month_last_day - timedelta(days = calendar.monthrange(last_month_last_day.year, last_month_last_day.month)[1] - 1)
+
+    print(last_month_1st)
+    post_daylog_to_blog(last_month_1st)
+
+    exit(0)
+
+
+    # Batch
+
+    day = datetime(2015, 12, 1)
+    while day < datetime(2016, 1, 1):
         post_daylog_to_blog(day)
         day += timedelta(days = 1)
-    # post_daylog_to_blog(day)
