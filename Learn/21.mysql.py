@@ -5,9 +5,9 @@ __author__ = 'IceHe'
 
 
 # mysql
-import test
+from Learn import test
 
-conn = test.connector.connect(user = 'test', password = 'TeSt', database='test')
+conn = test.connector.connect(user ='test', password ='TeSt', database='test')
 cursor = conn.cursor()
 
 # cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
