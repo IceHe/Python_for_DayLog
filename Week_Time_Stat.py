@@ -46,8 +46,8 @@ if __name__ == '__main__':
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select * from week_log where from_date = "' + monday.strftime('%Y/%m/%d') + '"'

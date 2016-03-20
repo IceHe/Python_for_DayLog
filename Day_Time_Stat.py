@@ -31,8 +31,8 @@ if __name__ == '__main__':
     import time
     time.sleep(2)
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select * from day_log where date_ymd = "' + yesterday.strftime('%y-%m-%d') + '"'

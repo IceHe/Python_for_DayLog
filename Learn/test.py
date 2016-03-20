@@ -6,8 +6,8 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     import json
-    # json_str = '{"discipline": [{"key": "\u65e9\u8d77 (0830\u524d)", "value": false}, {"key": "\u65e9\u9910", "value": false}, {"key": "\u82f1\u8bed", "value": false}, {"key": "\u8fd0\u52a8", "value": false}, {"key": "\u5f00\u597d\u5934\uff08\u4e0a\u5348\u5168\u529b\u5de5\u4f5c\uff09", "value": false}, {"key": "\u670b\u53cb\u5708\u00a0(\u508d\u665a/\u4e34\u7761)1", "value": false}, {"key": "\u5fae\u535a (\u4e34\u7761)", "value": false}, {"key": "\u53cd\u7701", "value": false}, {"key": "\u4e0d\u634b/\u62c9\u5934\u53d1", "value": true}, {"key": "\u53ea\u559d\u6e29\u767d\u5f00", "value": false}, {"key": "\u65e9\u7761 (2330\u524d)", "value": false}]}'
-    json_str = '{"[\u00a0]": false}'
+    json_str = '{"discipline": [{"key": "\u65e9\u8d77 (0830\u524d)", "value": false}, {"key": "\u65e9\u9910", "value": false}, {"key": "\u82f1\u8bed", "value": false}, {"key": "\u8fd0\u52a8", "value": false}, {"key": "\u5f00\u597d\u5934\uff08\u4e0a\u5348\u5168\u529b\u5de5\u4f5c\uff09", "value": false}, {"key": "\u670b\u53cb\u5708\u00a0(\u508d\u665a/\u4e34\u7761)1", "value": false}, {"key": "\u5fae\u535a (\u4e34\u7761)", "value": false}, {"key": "\u53cd\u7701", "value": false}, {"key": "\u4e0d\u634b/\u62c9\u5934\u53d1", "value": true}, {"key": "\u53ea\u559d\u6e29\u767d\u5f00", "value": false}, {"key": "\u65e9\u7761 (2330\u524d)", "value": false}]}'
+    # json_str = '{"[\u00a0]": false}'
 
     print(json.loads(json_str))
 

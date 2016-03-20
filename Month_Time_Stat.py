@@ -45,8 +45,8 @@ if __name__ == '__main__':
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select * from month_log where month_1st = "' + first_day.strftime('%Y/%m/%d') + '"'
