@@ -40,10 +40,36 @@ def post_monthlog_to_blog(day, lifelog_dir):
 
     month2yue = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 
+
+
+    import pymysql
+    conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
+    cursor = conn.cursor()
+
+    sql = 'select stu_pct, spo_pct, was_pct from month_log where month_1st = "%s"' % day.strftime('%Y/%m/%d')
+    cursor.execute(sql)
+
+    month_time_stat = cursor.fetchall()
+    month_time_stat = [round(x) for x in month_time_stat[0]]
+
+    cursor.close()
+    conn.close()
+
+
+
     import codecs
     with codecs.open(years_log_path, 'a', 'utf-8') as f:
-        f.write('%s. [%s月：月度关键词。 %s: keywords.](/lifelogs/%s/%s/index.html)\n'
-                % (day.month, month2yue[day.month], day.strftime('%b'), day.year, day.strftime('%m')))
+        f.write('%s. [%s月：月度关键词。](/lifelogs/%s/%s/index.html) 学 %s 动 %s 废 %s \n    <sup>%s: keywords.</sup>'
+                % (day.month,
+                   month2yue[day.month],
+                   day.strftime('%b'),
+                   day.year,
+                   day.strftime('%m'),
+                   month_time_stat[0],
+                   month_time_stat[1],
+                   month_time_stat[2]
+                   )
+                )
 
     return True
 
