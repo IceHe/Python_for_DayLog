@@ -6,16 +6,21 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     from datetime import datetime, timedelta
-    yesterday = (datetime.now() - timedelta(days = 1))
-    # yesterday = datetime(2015, 11, 17)
+    today = datetime.now()
+
+    import sys
+    if len(sys.argv) > 1:
+        today = datetime.strptime(sys.argv[1], '%m/%d/%y')
+        print('Today =', today)
+
+    yesterday = (today - timedelta(days = 1))
     yesterday_str = yesterday.strftime('%y/%m/%d')
 
     note_name = yesterday_str + ' stu spo'
-    # note_name = yesterday_str
 
     import random
     enex_path = '/Users/IceHe/Coding/Enex/statistics/' + yesterday_str.replace('/', '-')\
-                + '_Day_Log_ori_' + datetime.now().strftime('%H%M%S')\
+                + '_Day_Log_ori_' + today.strftime('%H%M%S')\
                 + '_' + str(random.randint(100, 999)) + '.enex'
 
     print('enex_path:', enex_path)
@@ -243,7 +248,7 @@ if __name__ == '__main__':
     for type in type_ary:
         sql += ', ' + str(type_stat[type]['hours'])
         sql += ', ' + str(type_stat[type]['pct'])
-    sql += ', ' + str(all_hours) + ', "' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '")'
+    sql += ', ' + str(all_hours) + ', "' + today.strftime('%Y-%m-%d %H:%M:%S') + '")'
 
     cursor.execute(sql)
 

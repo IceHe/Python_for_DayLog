@@ -8,6 +8,12 @@ if __name__ == '__main__':
     from datetime import datetime, timedelta
     today = datetime.now()
 
+    import sys
+    if len(sys.argv) > 1:
+        today = datetime.strptime(sys.argv[1], '%m/%d/%y')
+        print('Today =', today)
+
+
     # {datetime}.weekday() == 0 表示 周一
     if 0 != today.weekday():
         print('It isn\'t Monday today!')
@@ -19,21 +25,22 @@ if __name__ == '__main__':
     print(monday)
     print(sunday)
 
-    s2i = {'date_ymd': 0, \
-             'stu': 1, \
-             'spo': 2, \
-             'rd': 3, \
-             'joy': 4, \
-             'mus': 5, \
-             'was': 6, \
-             'stu_pct': 7, \
-             'spo_pct': 8, \
-             'rd_pct': 9, \
-             'joy_pct': 10, \
-             'mus_pct': 11, \
-             'was_pct': 12, \
-             'total_hours': 13, \
-            }
+    s2i = {
+        'date_ymd':     0,
+        'stu':          1,
+        'spo':          2,
+        'rd':           3,
+        'joy':          4,
+        'mus':          5,
+        'was':          6,
+        'stu_pct':      7,
+        'spo_pct':      8,
+        'rd_pct':       9,
+        'joy_pct':      10,
+        'mus_pct':      11,
+        'was_pct':      12,
+        'total_hours':  13,
+    }
 
     i2s = ['' for i in range(0, 14)]
     for s in s2i:
