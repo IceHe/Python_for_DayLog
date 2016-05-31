@@ -6,7 +6,7 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     ################
-    exit(0) # Switch
+    exit(0)  # Switch
     ################
 
     from datetime import datetime, timedelta
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     days = 3
 
     for i in range(0, days):
-        date = date_1st + timedelta(days = i)
+        date = date_1st + timedelta(days=i)
 
         date_str = date.strftime('%y/%m/%d')
 
@@ -28,7 +28,6 @@ if __name__ == '__main__':
                     + '_' + str(random.randint(100, 999)) + '.enex'
 
         print('enex_path:', enex_path)
-
 
         ##############################
         # export Note & get content
@@ -43,7 +42,6 @@ if __name__ == '__main__':
         with codecs.open(enex_path, 'r', 'utf-8') as f:
             content = f.read()
 
-
         ##############################
         # get Time Detail
         ##############################
@@ -57,7 +55,6 @@ if __name__ == '__main__':
         time_slots = re.findall(r'(\d\d\d\d)([' + type_str + '])', time_detail)
 
         print('time_slots:', time_slots)
-
 
         ##############################
         # stat Time Detail
@@ -83,8 +80,8 @@ if __name__ == '__main__':
 
         def format_digit(digit):
             if 0 == digit * 10 % 10:
-                return int(digit) # integer
-            return digit # float %.1f
+                return int(digit)  # integer
+            return digit  # float %.1f
 
         from_time = time_got_up
         stat_str = ''
@@ -94,7 +91,6 @@ if __name__ == '__main__':
             from_time = t['to_time']
 
         print('timeline:', timeline)
-
 
         ##############################
         # make Time Stat
@@ -117,19 +113,19 @@ if __name__ == '__main__':
 
         print('时', all_hours)
 
-
         ##############################
         # save Time Stat in Database
         ##############################
-        import mysql.connector
-        conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+        import pymysql
+        conn = pymysql.connect(user='test', password='88887777', database='life_log')
         cursor = conn.cursor()
 
         sql = r'insert into day_log(date_ymd, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_all_hours, created_time) values("'\
               + date.strftime('%Y/%m/%d') + '"'
         for type in type_ary:
-              sql += ', ' + str(type_stat[type]['hours'])
-              sql += ', ' + str(type_stat[type]['pct'])
+            sql += ', ' + str(type_stat[type]['hours'])
+            sql += ', ' + str(type_stat[type]['pct'])
+
         sql += ', ' + str(all_hours) + ', "' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '")'
 
         cursor.execute(sql)

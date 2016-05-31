@@ -3,10 +3,8 @@
 
 __author__ = 'IceHe'
 
-
 from datetime import datetime, timedelta
 import calendar
-
 
 def post_time_stat_to_blog(day):
 
@@ -14,7 +12,6 @@ def post_time_stat_to_blog(day):
 
     notebook_name = cur_month_1st.strftime('%Y/%m')
     note_name = cur_month_1st.strftime('%Y/%m')
-
 
     ##############################
     # export Note
@@ -27,7 +24,6 @@ def post_time_stat_to_blog(day):
     os.system(cmd)
     print(cmd)
     print(html_export_path)
-
 
     ##############################
     # get Content
@@ -46,11 +42,10 @@ def post_time_stat_to_blog(day):
     note_title = re.findall(r'(?:<title>)([\s\S]*?)(?:<\/title>)', content, re.S)[0]
     output = re.findall(r'(?:<body[^>]*?>)([\s\S]*?)(?:<\/body>)', content, re.S)[0]
 
-
     ##############################
     # process Text Content
     ##############################
-    cur_month_last_day = cur_month_1st + timedelta(days = calendar.monthrange(day.year, day.month)[1] - 1)
+    cur_month_last_day = cur_month_1st + timedelta(days=calendar.monthrange(day.year, day.month)[1] - 1)
 
     c_Ym = day.strftime('%Y/%m')
 
@@ -61,7 +56,6 @@ def post_time_stat_to_blog(day):
              + '[返回月历 **Back to Month ^**](/lifelogs/' \
              + c_Ym + '/index.html)\n<br/>' \
              + output.replace('\n', '')
-
 
     ##############################
     # output Post
@@ -74,14 +68,12 @@ def post_time_stat_to_blog(day):
     with codecs.open(time_stat_path, 'w', 'utf-8') as f:
         f.write(output)
 
-
     ##############################
     # add link to Month Log page
     ##############################
     month_log_path = '%s/index.md' % cur_month_dir
     with codecs.open(month_log_path, 'a', 'utf-8') as f:
         f.write('32. [**Summary %s**](/lifelogs/%s/%s/time_stat.html)\n' % (note_title, day.year, day.strftime('%m')))
-
 
     ##############################
     # add Time Stat Brief to Month Log Title
@@ -92,13 +84,12 @@ def post_time_stat_to_blog(day):
     month_index_title = re.findall(r'((title: \d\d\d\d\/\d\d)([^\n]*))', month_log, re.S)[0]
     print(month_index_title)
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = 'select stu_pct, spo_pct, was_pct from month_log where month_1st = "%s"' % day.strftime('%Y/%m/%d')
     cursor.execute(sql)
-
 
     month_time_stat = cursor.fetchall()
     month_time_stat = [round(x) for x in month_time_stat[0]]
@@ -108,12 +99,9 @@ def post_time_stat_to_blog(day):
     cursor.close()
     conn.close()
 
-
     month_log = month_log.replace(month_index_title[0], new_month_index_title)
     with codecs.open(month_log_path, 'w', 'utf-8') as f:
          f.write(month_log)
-
-
 
 
 if __name__ == '__main__':
@@ -121,14 +109,13 @@ if __name__ == '__main__':
     # Single
 
     today = datetime.now()
-    last_month_last_day = datetime(today.year, today.month, 1) - timedelta(days = 1)
-    last_month_1st = last_month_last_day - timedelta(days = calendar.monthrange(last_month_last_day.year, last_month_last_day.month)[1] - 1)
+    last_month_last_day = datetime(today.year, today.month, 1) - timedelta(days=1)
+    last_month_1st = last_month_last_day - timedelta(days=calendar.monthrange(last_month_last_day.year, last_month_last_day.month)[1] - 1)
 
     print(last_month_1st)
     post_time_stat_to_blog(last_month_1st)
 
     exit(0)
-
 
     # Batch
 
@@ -139,4 +126,4 @@ if __name__ == '__main__':
 
     while day < datetime(2016, 1, 1):
         post_time_stat_to_blog(day)
-        day += timedelta(days = calendar.monthrange(day.year, day.month)[1])
+        day += timedelta(days=calendar.monthrange(day.year, day.month)[1])

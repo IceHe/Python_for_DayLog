@@ -8,7 +8,7 @@ if __name__ == '__main__':
     from datetime import datetime, timedelta
     date_1st = datetime(2015, 10, 1)
     days = 31 + 17
-    date_last = date_1st + timedelta(days = days - 1)
+    date_last = date_1st + timedelta(days=days - 1)
 
 
     ##############################
@@ -17,8 +17,8 @@ if __name__ == '__main__':
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select date_ymd, oth_data from day_log where date_ymd >= "' \

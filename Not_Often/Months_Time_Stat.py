@@ -17,37 +17,35 @@ if __name__ == '__main__':
 
     first_day = specified_day
     days_of_month = calendar.monthrange(specified_day.year, specified_day.month)[1]
-    last_day = specified_day + timedelta(days = days_of_month - 1)
+    last_day = specified_day + timedelta(days=days_of_month - 1)
 
-
-    s2i = {'date_ymd': 0, \
-           'stu': 1, \
-           'spo': 2, \
-           'rd': 3, \
-           'joy': 4, \
-           'mus': 5, \
-           'was': 6, \
-           'stu_pct': 7, \
-           'spo_pct': 8, \
-           'rd_pct': 9, \
-           'joy_pct': 10, \
-           'mus_pct': 11, \
-           'was_pct': 12, \
-           'total_hours': 13, \
-           }
+    s2i = {
+        'date_ymd': 0,
+        'stu': 1,
+        'spo': 2,
+        'rd': 3,
+        'joy': 4,
+        'mus': 5,
+        'was': 6,
+        'stu_pct': 7,
+        'spo_pct': 8,
+        'rd_pct': 9,
+        'joy_pct': 10,
+        'mus_pct': 11,
+        'was_pct': 12,
+        'total_hours': 13,
+    }
 
     i2s = ['' for i in range(0, 14)]
     for s in s2i:
         i2s[s2i[s]] = s
 
-
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
-
 
     while first_day < datetime(2015, 10, 1):
 
@@ -67,7 +65,6 @@ if __name__ == '__main__':
             cursor.close()
             conn.close()
             exit(1)
-
 
         ##############################
         # make Month Stat
@@ -89,7 +86,6 @@ if __name__ == '__main__':
                 types[i2s[i]]['hours'] += d[i]
         print()
 
-
         all_hours = 0
         for i in range(1, 7):
             all_hours += types[i2s[i]]['hours']
@@ -100,12 +96,12 @@ if __name__ == '__main__':
 
         print('total_hours:', all_hours)
 
-
         ##############################
         # save Month Stat to DB
         ##############################
         sql = r'insert into month_log(month_1st, days, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_hours, created_time) values("' \
               + first_day.strftime('%Y/%m/%d') + '", "' + str(days_of_month) + '"'
+
         for i in range(1, 7):
             sql += ', ' + str(types[i2s[i]]['hours'])
             sql += ', ' + str(types[i2s[i]]['pct'])
@@ -114,14 +110,12 @@ if __name__ == '__main__':
 
         cursor.execute(sql)
 
-
         ##############################
         # prepare Vars
         ##############################
-        first_day = first_day + timedelta(days = days_of_month)
+        first_day = first_day + timedelta(days=days_of_month)
         days_of_month = calendar.monthrange(first_day.year, first_day.month)[1]
-        last_day = first_day + timedelta(days = days_of_month - 1)
-
+        last_day = first_day + timedelta(days=days_of_month - 1)
 
     cursor.close()
     conn.commit()

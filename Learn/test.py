@@ -48,10 +48,10 @@ if __name__ == '__main__':
     ##############################
     # MySQL
     ##############################
-    # import mysql.connector
+    # import pymysql
     #
     #
-    # conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    # conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
     # cursor = conn.cursor()
     #
     # cursor.execute(r'select * from day_log')

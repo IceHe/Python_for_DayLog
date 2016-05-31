@@ -13,14 +13,13 @@ if __name__ == '__main__':
         today = datetime.strptime(sys.argv[1], '%m/%d/%y')
         print('Today =', today)
 
-
     # {datetime}.weekday() == 0 表示 周一
     if 0 != today.weekday():
         print('It isn\'t Monday today!')
         exit(1)
 
-    monday = today - timedelta(days = 7)
-    sunday = today - timedelta(days = 1)
+    monday = today - timedelta(days=7)
+    sunday = today - timedelta(days=1)
 
     print(monday)
     print(sunday)
@@ -46,7 +45,6 @@ if __name__ == '__main__':
     for s in s2i:
         i2s[s2i[s]] = s
 
-
     ##############################
     # Has made the Week Stat?
     ##############################
@@ -54,10 +52,17 @@ if __name__ == '__main__':
     os.system('mysql.server start')
 
     import pymysql
-    conn = pymysql.connect(user = 'test', password = '88887777', database='life_log')
+    conn = pymysql.connect(
+        user='test',
+        password='88887777',
+        database='life_log'
+    )
+
     cursor = conn.cursor()
 
-    sql = r'select * from week_log where from_date = "' + monday.strftime('%Y/%m/%d') + '"'
+    sql = r'select * from week_log where from_date = "%s"' \
+          % monday.strftime('%Y/%m/%d')
+
     cursor.execute(sql)
     week_log = cursor.fetchall()
     if 0 != len(week_log):
@@ -66,13 +71,14 @@ if __name__ == '__main__':
         conn.close()
         exit(1)
 
-
     ##############################
     # get Day Logs of the Week
     ##############################
-    sql = r'select ' + ', '.join(i2s) + ' from day_log where ' \
-          + 'date_ymd >= "' + monday.strftime('%Y-%m-%d') + '" and ' \
-          + 'date_ymd <= "' + sunday.strftime('%Y-%m-%d') + '"'
+    sql = r'select %s from day_log where date_ymd >= "%s" and date_ymd <= "%s"' % (
+        ', '.join(i2s),
+        monday.strftime('%Y-%m-%d'),
+        sunday.strftime('%Y-%m-%d')
+    )
     print('\n', sql, '\n')
 
     cursor.execute(sql)
@@ -84,13 +90,15 @@ if __name__ == '__main__':
         conn.close()
         exit(1)
 
-
     ##############################
     # make Week Stat
     ##############################
     types = {}
     for i in range(1, 7):
-        types[i2s[i]] = {'hours': 0, 'pct': 0}
+        types[i2s[i]] = {
+            'hours': 0,
+            'pct': 0
+        }
 
     for d in days:
         print(d[s2i['date_ymd']],
@@ -101,10 +109,11 @@ if __name__ == '__main__':
               'mus', d[s2i['mus']], d[s2i['mus_pct']],
               'was', d[s2i['was']], d[s2i['was_pct']],
               'all', d[s2i['total_hours']])
+
         for i in range(1, 7):
             types[i2s[i]]['hours'] += d[i]
-    print()
 
+    print()
 
     all_hours = 0
     for i in range(1, 7):
@@ -116,27 +125,32 @@ if __name__ == '__main__':
 
     print('total_hours:', all_hours)
 
-
     ##############################
     # export Note & get content
     ##############################
     month_log_at = monday
-    if month_log_at.month < (month_log_at + timedelta(days = 3)).month:
-        month_log_at = month_log_at + timedelta(days = 3)
+    if month_log_at.month < (month_log_at + timedelta(days=3)).month:
+        month_log_at = month_log_at + timedelta(days=3)
     print(month_log_at)
 
     note_name = month_log_at.strftime('%Y/%m ')
 
     import random
-    enex_path = '/Users/IceHe/Coding/Enex/statistics/' + month_log_at.strftime('%Y-%m') \
-                + '_Week_Log_ori_' + datetime.now().strftime('%H%M%S') \
-                + '_' + str(random.randint(100, 999)) + '.enex'
+    enex_path = '/Users/IceHe/Coding/Enex/statistics/%s_Week_Log_ori_%s_%s.enex' % (
+        month_log_at.strftime('%Y-%m'),
+        datetime.now().strftime('%H%M%S'),
+        str(random.randint(100, 999))
+    )
 
     print('enex_path:', enex_path)
 
-
     print('Export Note:')
-    cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_enex_with_nbname.scpt "' + note_name + '" "' + month_log_at.strftime('%Y/%m') + '" "' + enex_path + '"'
+    cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_enex_with_nbname.scpt "%s" "%s" "%s"' % (
+        note_name,
+        month_log_at.strftime('%Y/%m'),
+        enex_path
+    )
+
     print(cmd)
     os.system(cmd)
 
@@ -145,17 +159,25 @@ if __name__ == '__main__':
         content = f.read()
 
     month_1st = datetime(month_log_at.year, month_log_at.month, 1)
-    if month_1st.weekday() > 3: # 在周三之后
-        month_1st_week_monday = month_1st + timedelta(days = 7 - month_1st.weekday())
-    else: # 周四之前
-        month_1st_week_monday = month_1st - timedelta(days = month_1st.weekday())
+
+    # 在周三之后
+    if month_1st.weekday() > 3:
+        month_1st_week_monday = month_1st + timedelta(days=7 - month_1st.weekday())
+    # 周四之前
+    else:
+        month_1st_week_monday = month_1st - timedelta(days=month_1st.weekday())
 
     week_num = (monday - month_1st_week_monday).days // 7 + 1
     print("week_num:", week_num)
 
     import re
-    ori_week_stat = re.findall(r'(<div>Week ' + str(week_num) + r'<\/div>[\s\S]*?\n<div><br\/><\/div>)', content, re.S)[0]
-
+    ori_week_stat = re.findall(
+        r'(<div>Week %s</div>[\s\S]*?\n<div><br/></div>)' % (
+            str(week_num),
+        ),
+        content,
+        re.S
+    )[0]
 
     ##############################
     # output Week Stat
@@ -165,23 +187,54 @@ if __name__ == '__main__':
 
     mod_str = ori_week_stat
     for i in range(1, 7):
-        mod_str = re.sub(r'(' + type_ary[i] + r'([^<]*)?)', '%s%s，%s' % (type_ary[i], types[i2s[i]]['hours'], types[i2s[i]]['pct']), mod_str)
+        mod_str = re.sub(
+            r'(%s([^<]*)?)' % type_ary[i],
+            '%s%s，%s' % (
+                type_ary[i],
+                types[i2s[i]]['hours'],
+                types[i2s[i]]['pct']
+            ),
+            mod_str
+        )
 
-    mod_str = re.sub(r'(<div>// ~ //<\/div>)', '<div>%s ~ %s</div>' % (monday.strftime('%y/%m/%d'), sunday.strftime('%y/%m/%d')), mod_str)
-    mod_str = re.sub(r'(总([^<]*)?)', '%s%s' % ('总', all_hours), mod_str)
+    mod_str = re.sub(
+        r'(<div>// ~ //<\/div>)',
+        '<div>%s ~ %s</div>' % (
+            monday.strftime('%y/%m/%d'),
+            sunday.strftime('%y/%m/%d')
+        ),
+        mod_str
+    )
+
+    mod_str = re.sub(
+        r'(总([^<]*)?)',
+        '%s%s' % ('总', all_hours),
+        mod_str
+    )
 
     content = content.replace(ori_week_stat, mod_str)
-
 
     ##############################
     # save Week Stat to DB
     ##############################
-    sql = r'insert into week_log(from_date, to_date, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_hours, created_time) values("' \
-          + monday.strftime('%Y/%m/%d') + '", "' + sunday.strftime('%Y/%m/%d') + '"'
+    sql = r'insert into week_log(from_date, to_date, ' \
+          r'stu, stu_pct, spo, spo_pct, rd, rd_pct, ' \
+          r'joy, joy_pct, mus, mus_pct, was, was_pct, ' \
+          r'total_hours, created_time) values("%s", "%s"' % (
+              monday.strftime('%Y/%m/%d'),
+              sunday.strftime('%Y/%m/%d')
+          )
+
     for i in range(1, 7):
-        sql += ', ' + str(types[i2s[i]]['hours'])
-        sql += ', ' + str(types[i2s[i]]['pct'])
-    sql += ', ' + str(all_hours) + ', "' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '")'
+        sql += ', %s, %s' % (
+            str(types[i2s[i]]['hours']),
+            str(types[i2s[i]]['pct'])
+        )
+
+    sql += ', %s, "%s")' % (
+        str(all_hours),
+        datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    )
     print(sql)
 
     cursor.execute(sql)
@@ -189,7 +242,6 @@ if __name__ == '__main__':
     cursor.close()
     conn.commit()
     conn.close()
-
 
     ##############################
     # import Note
@@ -201,11 +253,14 @@ if __name__ == '__main__':
 
     print(note_name)
     print('Delete Note:')
-    # 高危操作，请注意！
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete_with_nbname_no_confirm.scpt "' + note_name + '" "' + month_log_at.strftime('%Y/%m') + '"')
-    # os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete.scpt "'
-    #           + note_name + '"')
+    # 删除笔记操作，请注意！
+    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete_with_nbname_no_confirm.scpt "%s" "%s"' % (
+        note_name,
+        month_log_at.strftime('%Y/%m')
+    ))
 
     print('Import Note:')
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_import.scpt "'
-              + enex_import_path + '" "' + month_log_at.strftime('%Y/%m') + '"')
+    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_import.scpt "%s" "%s"' % (
+        enex_import_path,
+        month_log_at.strftime('%Y/%m')
+    ))

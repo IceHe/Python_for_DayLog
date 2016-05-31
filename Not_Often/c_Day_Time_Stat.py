@@ -6,11 +6,11 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     ################
-    exit(0) # Switch
+    exit(0)  # Switch
     ################
 
     from datetime import datetime, timedelta
-    yesterday = (datetime.now() - timedelta(days = 1))
+    yesterday = (datetime.now() - timedelta(days=1))
     # yesterday = datetime(2015, 10, 3)
     yesterday_str = yesterday.strftime('%y/%m/%d')
 
@@ -24,7 +24,6 @@ if __name__ == '__main__':
 
     print('enex_path:', enex_path)
 
-
     ##############################
     # export Note & get content
     ##############################
@@ -36,7 +35,6 @@ if __name__ == '__main__':
     import codecs
     with codecs.open(enex_path, 'r', 'utf-8') as f:
         content = f.read()
-
 
     ##############################
     # get Time Detail
@@ -51,7 +49,6 @@ if __name__ == '__main__':
     time_slots = re.findall(r'(\d\d\d\d)([' + type_str + '])', time_detail)
 
     print('time_slots:', time_slots)
-
 
     ##############################
     # stat Time Detail
@@ -89,7 +86,6 @@ if __name__ == '__main__':
 
     print('timeline:', timeline)
 
-
     ##############################
     # update Time Detail
     ##############################
@@ -109,7 +105,6 @@ if __name__ == '__main__':
         i += 1
 
     content = content.replace(time_detail, time_detail_edt)
-
 
     ##############################
     # stat Time Table
@@ -147,10 +142,9 @@ if __name__ == '__main__':
             hour_ary[i] = time_ary[i * 2] + time_ary[i * 2 + 1] + '，'
 
     def format_hh(hour):
-        if 0 <= hour and hour < 10:
+        if 0 <= hour < 10:
             return '0' + str(hour)
         return str(hour)
-
 
     ##############################
     # make Time Table
@@ -167,14 +161,12 @@ if __name__ == '__main__':
 
     print('\n', time_table)
 
-
     ##############################
     # output Time Table
     ##############################
     matches = re.findall(r'(?:<div><b>)(# Time Table[\s\S]*?(?:<div><br\/><\/div>))?', content, re.S)
     target_str = [m for m in matches if m != ''][0]
     content = content.replace(target_str, time_table)
-
 
     ##############################
     # make Time Stat
@@ -197,7 +189,6 @@ if __name__ == '__main__':
 
     print('时', hours)
 
-
     ##############################
     # output Time Stat
     ##############################
@@ -212,15 +203,14 @@ if __name__ == '__main__':
 
     content = content.replace(target_str, mod_str)
 
-
     ##############################
     # save Time Stat in Database
     ##############################
 
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'insert into day_log(date_ymd, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_hours, created_time) values("' \
@@ -236,7 +226,6 @@ if __name__ == '__main__':
     conn.commit()
     conn.close()
 
-
     ##############################
     # update Note Name
     ##############################
@@ -250,7 +239,6 @@ if __name__ == '__main__':
     new_note_name += '</title>'
 
     content = content.replace(note_name_str, new_note_name)
-
 
     ##############################
     # import Note

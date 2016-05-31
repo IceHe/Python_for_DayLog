@@ -13,41 +13,38 @@ if __name__ == '__main__':
         print('The from_date isn\'t Monday!')
         exit(1)
 
-
-
     while from_date <= datetime(2015, 10, 12):
-        from_date = from_date + timedelta(days = 7)
+        from_date = from_date + timedelta(days=7)
 
         monday = from_date
-        sunday = from_date + timedelta(days = 6)
+        sunday = from_date + timedelta(days=6)
 
-
-        s2i = {'date_ymd': 0, \
-                 'stu': 1, \
-                 'spo': 2, \
-                 'rd': 3, \
-                 'joy': 4, \
-                 'mus': 5, \
-                 'was': 6, \
-                 'stu_pct': 7, \
-                 'spo_pct': 8, \
-                 'rd_pct': 9, \
-                 'joy_pct': 10, \
-                 'mus_pct': 11, \
-                 'was_pct': 12, \
-                 'total_hours': 13, \
-                }
+        s2i = {
+            'date_ymd': 0,
+            'stu': 1,
+            'spo': 2,
+            'rd': 3,
+            'joy': 4,
+            'mus': 5,
+            'was': 6,
+            'stu_pct': 7,
+            'spo_pct': 8,
+            'rd_pct': 9,
+            'joy_pct': 10,
+            'mus_pct': 11,
+            'was_pct': 12,
+            'total_hours': 13,
+        }
 
         i2s = ['' for i in range(0, 14)]
         for s in s2i:
             i2s[s2i[s]] = s
 
-
         ##############################
         # get Day Logs from the Week
         ##############################
-        import mysql.connector
-        conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+        import pymysql
+        conn = pymysql.connect(user='test', password='88887777', database='life_log')
         cursor = conn.cursor()
 
         sql = r'select ' + ', '.join(i2s) + ' from day_log where ' \
@@ -57,7 +54,6 @@ if __name__ == '__main__':
 
         cursor.execute(sql)
         days = cursor.fetchall()
-
 
         ##############################
         # make Week Stat
@@ -83,7 +79,6 @@ if __name__ == '__main__':
             print('Error: Get %d days data!' % len(days))
             exit(1)
 
-
         all_hours = 0
         for i in range(1, 7):
             all_hours += types[i2s[i]]['hours']
@@ -94,21 +89,29 @@ if __name__ == '__main__':
 
         print('total_hours:', all_hours)
 
-
         ##############################
         # save Week Stat to DB
         ##############################
-        sql = r'insert into week_log(from_date, to_date, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_hours, created_time) values("' \
-              + monday.strftime('%Y/%m/%d') + '", "' + sunday.strftime('%Y/%m/%d') + '"'
+        sql = r'insert into week_log(from_date, to_date, ' \
+              r'stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, ' \
+              r'total_hours, created_time) values("%s", "%s")' % (
+                  monday.strftime('%Y/%m/%d'),
+                  sunday.strftime('%Y/%m/%d')
+              )
+
         for i in range(1, 7):
-            sql += ', ' + str(types[i2s[i]]['hours'])
-            sql += ', ' + str(types[i2s[i]]['pct'])
-        sql += ', ' + str(all_hours) + ', "' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '")'
+            sql += ', %s, %s' % (
+                str(types[i2s[i]]['hours']),
+                str(types[i2s[i]]['pct'])
+            )
+
+        sql += ', %s, "%s")' % (
+            str(all_hours),
+            datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        )
         print(sql)
 
         cursor.execute(sql)
-
-
 
         cursor.close()
         conn.commit()

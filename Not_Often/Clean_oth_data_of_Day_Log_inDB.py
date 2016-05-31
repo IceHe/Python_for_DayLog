@@ -16,7 +16,7 @@ if __name__ == '__main__':
     #         print(x)
     # exit(0)
 
-    from datetime import datetime, timedelta
+    from datetime import datetime
     date_1st = datetime(2015, 10, 1)
     date_last = datetime(2015, 11, 30)
 
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select date_ymd, oth_data from day_log where date_ymd >= "' \

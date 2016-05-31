@@ -9,19 +9,18 @@ if __name__ == '__main__':
     date_1st = datetime(2015, 10, 1)
     days = 31 + 17
 
-
     ##############################
     # init DB conn
     ##############################
     import os
     os.system('mysql.server start')
 
-    import mysql.connector
-    conn = mysql.connector.connect(user = 'test', password = '88887777', database='life_log')
+    import pymysql
+    conn = pymysql.connect(user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     for i in range(0, days):
-        date = date_1st + timedelta(days = i)
+        date = date_1st + timedelta(days=i)
         date_str = date.strftime('%y/%m/%d')
         note_name = date_str
 
@@ -31,7 +30,6 @@ if __name__ == '__main__':
                     + '_' + str(random.randint(100, 999)) + '.enex'
 
         print('enex_path:', enex_path)
-
 
         ##############################
         # export Note & get content
@@ -45,7 +43,6 @@ if __name__ == '__main__':
         with codecs.open(enex_path, 'r', 'utf-8') as f:
             content = f.read()
 
-
         ##############################
         # stat Discipline
         ##############################
@@ -58,7 +55,6 @@ if __name__ == '__main__':
         discipline_stat = []
         for x in discipline_list:
             discipline_stat.append({x[2].replace(r'\xa0', ' '): ('' == x[1])})
-
 
         ##############################
         # save Discipline Result in DB
