@@ -101,14 +101,16 @@ if __name__ == '__main__':
         types[i2s[i]] = {'hours': 0, 'pct': 0}
 
     for d in days:
-        print(d[s2i['date_ymd']],
-              'stu', d[s2i['stu']], d[s2i['stu_pct']],
-              'spo', d[s2i['spo']], d[s2i['spo_pct']],
-              'rd', d[s2i['rd']], d[s2i['rd_pct']],
-              'joy', d[s2i['joy']], d[s2i['joy_pct']],
-              'mus', d[s2i['mus']], d[s2i['mus_pct']],
-              'was', d[s2i['was']], d[s2i['was_pct']],
-              'all', d[s2i['total_hours']])
+        print(
+            d[s2i['date_ymd']],
+            'stu', d[s2i['stu']], d[s2i['stu_pct']],
+            'spo', d[s2i['spo']], d[s2i['spo_pct']],
+            'rd', d[s2i['rd']], d[s2i['rd_pct']],
+            'joy', d[s2i['joy']], d[s2i['joy_pct']],
+            'mus', d[s2i['mus']], d[s2i['mus_pct']],
+            'was', d[s2i['was']], d[s2i['was_pct']],
+            'all', d[s2i['total_hours']]
+        )
 
         for i in range(1, 7):
             types[i2s[i]]['hours'] += d[i]

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'IceHe'
-
 from datetime import datetime, timedelta
 import calendar
+
+__author__ = 'IceHe'
+
 
 def post_monthlog_to_blog(day, lifelog_dir):
 
@@ -71,12 +72,12 @@ def post_monthlog_to_blog(day, lifelog_dir):
         f.write('%s. [%s月：月度关键词。](/lifelogs/%s/%s/index.html) 学 %s 动 %s 废 %s \n    <sup>%s: keywords.</sup>' % (
             day.month,
             month2yue[day.month],
-            day.strftime('%b'),
             day.year,
             day.strftime('%m'),
             month_time_stat[0],
             month_time_stat[1],
-            month_time_stat[2]
+            month_time_stat[2],
+            day.strftime('%b')
         ))
 
     return True
@@ -170,7 +171,7 @@ def post_daylog_to_blog(day):
              + '[**< ' + p_MdY + '** - Prev 上一天](/lifelogs/' + p_Ymd \
              + '.html) &nbsp; &nbsp; | &nbsp; &nbsp; [下一天 Next - **' \
              + n_MdY + ' >**](/lifelogs/' + n_Ymd \
-             + '.html) &nbsp; &nbsp; |  &nbsp; &nbsp; [返回月历 **Back to Month ^**](/lifelogs/'\
+             + '.html) &nbsp; &nbsp; |  &nbsp; &nbsp; [返回月历 **Back to Month ^**](/lifelogs/' \
              + c_Ym + '/index.html)\n<br/>' \
              + output.replace('\n', '')
 

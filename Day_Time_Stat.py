@@ -333,6 +333,10 @@ if __name__ == '__main__':
 
     cursor.execute(sql)
 
+    cursor.close()
+    conn.commit()
+    conn.close()
+
     ##############################
     # update Note Name
     ##############################
