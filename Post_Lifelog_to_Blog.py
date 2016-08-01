@@ -18,7 +18,7 @@ def post_monthlog_to_blog(day, lifelog_dir):
     )
 
     content = 'title: ' + day.strftime('%Y/%m') + '\n' \
-              + 'date: ' + day.strftime('%Y-%m-01 00:00:00') + '\n' \
+              + 'date: ' + next_month.strftime('%Y-%m-01 00:00:00') + '\n' \
               + 'toc: false\n' \
               + '---\n' \
               + '[**< ' + prev_month.strftime('%b. %Y') \
