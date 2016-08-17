@@ -333,9 +333,9 @@ if __name__ == '__main__':
 
     cursor.execute(sql)
 
-    cursor.close()
-    conn.commit()
-    conn.close()
+    # cursor.close()
+    # conn.commit()
+    # conn.close()
 
     ##############################
     # update Note Name
@@ -358,45 +358,45 @@ if __name__ == '__main__':
     ##############################
     # stat Discipline
     ##############################
-    # import re
-    # matches = re.findall(
-    #     r'(?:<div><b>)(# Discipline[\s\S]*?)(?:<div><b>#)',
-    #     content,
-    #     re.S
-    # )
-    #
-    # discipline_detail = [m for m in matches if m != ''][0]
-    #
-    # discipline_list = re.findall(
-    #     r'(?:<div>)(<en-todo([^/]*)?\/>([^<]*))(?:<\/div>)',
-    #     discipline_detail
-    # )
-    #
-    # discipline_stat = []
-    # for x in discipline_list:
-    #     discipline_stat.append({
-    #         x[2].replace(r'\xa0', ' '): ('' == x[1])
-    #     })
+    import re
+    matches = re.findall(
+        r'(?:<div><b>)(# Discipline[\s\S]*?)(?:<div><b>#)',
+        content,
+        re.S
+    )
+
+    discipline_detail = [m for m in matches if m != ''][0]
+
+    discipline_list = re.findall(
+        r'(?:<div>)(<en-todo([^/]*)?\/>([^<]*))(?:<\/div>)',
+        discipline_detail
+    )
+
+    discipline_stat = []
+    for x in discipline_list:
+        discipline_stat.append({
+            x[2].replace(r'\xa0', ' '): ('' == x[1])
+        })
 
     ##############################
     # save Discipline Result in DB
     ##############################
-    # import json
-    # discipline_json = json.dumps({
-    #     'discipline': discipline_stat
-    # })
-    #
-    # sql = r'update day_log set oth_data = "%s" where date_ymd = "%s"' % (
-    #     discipline_json.replace('\\', '\\\\').replace('"', r'\"'),
-    #     yesterday.strftime('%Y-%m-%d')
-    # )
-    # print(sql)
-    #
-    # cursor.execute(sql)
-    #
-    # cursor.close()
-    # conn.commit()
-    # conn.close()
+    import json
+    discipline_json = json.dumps({
+        'discipline': discipline_stat
+    })
+
+    sql = r'update day_log set oth_data = "%s" where date_ymd = "%s"' % (
+        discipline_json.replace('\\', '\\\\').replace('"', r'\"'),
+        yesterday.strftime('%Y-%m-%d')
+    )
+    print(sql)
+
+    cursor.execute(sql)
+
+    cursor.close()
+    conn.commit()
+    conn.close()
 
     # exit(0)
 
