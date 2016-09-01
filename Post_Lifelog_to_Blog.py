@@ -69,7 +69,7 @@ def post_monthlog_to_blog(day, lifelog_dir):
 
     import codecs
     with codecs.open(years_log_path, 'a', 'utf-8') as f:
-        f.write('%s. [%s月：月度关键词。](/lifelogs/%s/%s/index.html) 学 %s 动 %s 废 %s \n    <sup>%s: keywords.</sup>' % (
+        f.write('%s. [%s月：月度关键词。](/lifelogs/%s/%s/index.html) 学 %s 动 %s 废 %s\n    <sup>%s: keywords.</sup>' % (
             day.month,
             month2yue[day.month],
             day.year,
