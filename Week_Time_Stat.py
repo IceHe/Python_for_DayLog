@@ -11,7 +11,6 @@ if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1:
         today = datetime.strptime(sys.argv[1], '%m/%d/%y')
-        print('Today =', today)
 
     # {datetime}.weekday() == 0 表示 周一
     if 0 != today.weekday():
@@ -21,8 +20,9 @@ if __name__ == '__main__':
     monday = today - timedelta(days=7)
     sunday = today - timedelta(days=1)
 
-    print(monday)
-    print(sunday)
+    print('Today =', today)
+    print('Monday =', monday)
+    print('Sunday =', sunday)
 
     s2i = {
         'date_ymd':     0,
