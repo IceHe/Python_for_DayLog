@@ -18,7 +18,7 @@ if __name__ == '__main__':
     # note_name = yesterday_str
 
     import random
-    enex_path = '/Users/IceHe/Coding/Enex/statistics/' + yesterday_str.replace('/', '-')\
+    enex_path = '/Users/IceHe/Documents/Enex/statistics/' + yesterday_str.replace('/', '-')\
                 + '_Day_Log_ori_' + datetime.now().strftime('%H%M%S')\
                 + '_' + str(random.randint(100, 999)) + '.enex'
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     ##############################
     import os
     print('Export Note:')
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_enex.scpt "'
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_enex.scpt "'
               + note_name + '" "' + enex_path + '"')
 
     import codecs
@@ -251,10 +251,10 @@ if __name__ == '__main__':
     print(note_name)
     print('Delete Note:')
     # 高危操作，请注意！
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete_no_confirm.scpt "' + note_name + '"')
-    # os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete.scpt "'
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_delete_no_confirm.scpt "' + note_name + '"')
+    # os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_delete.scpt "'
     #           + note_name + '"')
 
     print('Import Note:')
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_import.scpt "'
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_import.scpt "'
               + enex_import_path + '" "' + yesterday.strftime('%Y/%m') + '"')

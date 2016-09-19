@@ -133,7 +133,7 @@ if __name__ == '__main__':
     note_name = first_day.strftime('%Y/%m stu spo was')
 
     import random
-    enex_path = '/Users/IceHe/Coding/Enex/statistics/%s_Month_Log_ori_%s_%s.enex' % (
+    enex_path = '/Users/IceHe/Documents/Enex/statistics/%s_Month_Log_ori_%s_%s.enex' % (
         first_day.strftime('%Y-%m'),
         datetime.now().strftime('%H%M%S'),
         str(random.randint(100, 999))
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     print('enex_path:', enex_path)
 
     print('Export Note:')
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_enex.scpt "%s" "%s"' % (
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_enex.scpt "%s" "%s"' % (
         note_name,
         enex_path
     ))
@@ -239,13 +239,13 @@ if __name__ == '__main__':
     print('Delete Note:')
     # 删除笔记操作，请注意！
     os.system(
-        'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_delete_no_confirm.scpt "%s"'
+        'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_delete_no_confirm.scpt "%s"'
         % note_name
     )
 
     print('Import Note:')
     os.system(
-        'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_import.scpt "%s" "%s"' % (
+        'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_import.scpt "%s" "%s"' % (
             enex_import_path,
             first_day.strftime('%Y/%m')
         )

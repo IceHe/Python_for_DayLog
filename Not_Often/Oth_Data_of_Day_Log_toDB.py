@@ -25,7 +25,7 @@ if __name__ == '__main__':
         note_name = date_str
 
         import random
-        enex_path = '/Users/IceHe/Coding/Enex/tmp/' + date_str.replace('/', '-')\
+        enex_path = '/Users/IceHe/Documents/Enex/tmp/' + date_str.replace('/', '-')\
                     + '_Day_Log_ori_' + datetime.now().strftime('%H%M%S')\
                     + '_' + str(random.randint(100, 999)) + '.enex'
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         ##############################
         import os
         print('Export Note:')
-        os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_enex.scpt "'
+        os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_enex.scpt "'
                   + note_name + '" "' + enex_path + '"')
 
         import codecs

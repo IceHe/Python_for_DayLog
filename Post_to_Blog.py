@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     import random
     import re
-    html_export_path = '/Users/IceHe/Coding/Enex/post/%s_%s_%s' % (
+    html_export_path = '/Users/IceHe/Documents/Enex/post/%s_%s_%s' % (
         re.sub(r'[\\\\/&<>\\?\\!]', '_', note_name),
         timestamp_str,
         str(random.randint(100, 999))
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     ##############################
     import os
     print('Export Note:')
-    os.system('osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_html.scpt "%s" "%s"' % (
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_html.scpt "%s" "%s"' % (
         note_name,
         html_export_path
     ))
@@ -79,8 +79,8 @@ if __name__ == '__main__':
     print(res_ori_path)
     print(Path(res_ori_path).exists())
 
-    img_path = '/Users/IceHe/Coding/Blog/ice-blog-img/%s/' % note_name
-    att_path = '/Users/IceHe/Coding/Blog/ice-blog-att/%s/' % note_name
+    img_path = '/Users/IceHe/Documents/Blog/ice-blog-img/%s/' % note_name
+    att_path = '/Users/IceHe/Documents/Blog/ice-blog-att/%s/' % note_name
     if not Path(img_path).exists():
         os.mkdir(img_path)
     if not Path(att_path).exists():
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     ##############################
     # output Post
     ##############################
-    post_path = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/_posts/LATEST/%s.md' % note_name
+    post_path = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/_posts/LATEST/%s.md' % note_name
 
     with codecs.open(post_path, 'w', 'utf-8') as f:
         f.write(content)

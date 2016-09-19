@@ -18,8 +18,8 @@ def post_time_stat_to_blog(day):
     ##############################
     import os
     print('Export Note:')
-    html_export_path = '/Users/IceHe/Coding/Enex/lifelog_month_stat/' + note_name.replace('/', '-')
-    cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_html_with_nbname.scpt "' \
+    html_export_path = '/Users/IceHe/Documents/Enex/lifelog_month_stat/' + note_name.replace('/', '-')
+    cmd = 'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_html_with_nbname.scpt "' \
           + note_name + '" "' + notebook_name + '" "' + html_export_path + '"'
     os.system(cmd)
     print(cmd)
@@ -60,7 +60,7 @@ def post_time_stat_to_blog(day):
     ##############################
     # output Post
     ##############################
-    lifelog_dir = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/lifelogs'
+    lifelog_dir = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/lifelogs'
     cur_year_dir = lifelog_dir + '/' + day.strftime('%Y')
     cur_month_dir = cur_year_dir + '/' + day.strftime('%m')
     time_stat_path = '%s/time_stat.md' % cur_month_dir

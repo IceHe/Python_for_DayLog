@@ -43,7 +43,7 @@ def post_monthlog_to_blog(day, lifelog_dir):
         f.write(content)
 
     # years_log_path = '%s/index.md' % lifelog_dir
-    years_log_path = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/_posts/lifelogs.md'
+    years_log_path = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/_posts/lifelogs.md'
 
     month2yue = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 
@@ -93,10 +93,10 @@ def post_daylog_to_blog(day):
     ##############################
     import os
     print('Export Note:')
-    html_export_path = '/Users/IceHe/Coding/Enex/lifelog/%s' \
+    html_export_path = '/Users/IceHe/Documents/Enex/lifelog/%s' \
                        % note_name.replace('/', '-')
 
-    cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_html_with_nbname.scpt "%s" "%s" "%s"' % (
+    cmd = 'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_html_with_nbname.scpt "%s" "%s" "%s"' % (
         note_name,
         notebook_name,
         html_export_path
@@ -178,7 +178,7 @@ def post_daylog_to_blog(day):
     ##############################
     # make dir of Life Log
     ##############################
-    lifelog_dir = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/lifelogs'
+    lifelog_dir = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/lifelogs'
 
     from pathlib import Path
     cur_year_dir = '%s/%s' % (
@@ -238,10 +238,10 @@ def post_time_stat_to_blog(day):
     ##############################
     import os
     print('Export Note:')
-    html_export_path = '/Users/IceHe/Coding/Enex/lifelog_month_stat/%s' \
+    html_export_path = '/Users/IceHe/Documents/Enex/lifelog_month_stat/%s' \
                        % note_name.replace('/', '-')
 
-    cmd = 'osascript /Users/IceHe/Coding/AppleScript/Evernote/note_export_html_with_nbname.scpt "%s" "%s" "%s"' % (
+    cmd = 'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_html_with_nbname.scpt "%s" "%s" "%s"' % (
         note_name,
         notebook_name,
         html_export_path
@@ -297,7 +297,7 @@ def post_time_stat_to_blog(day):
     ##############################
     # output Post
     ##############################
-    lifelog_dir = '/Users/IceHe/Coding/Blog/icehe.blog.hexo/source/lifelogs'
+    lifelog_dir = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/lifelogs'
     cur_year_dir = '%s/%s' % (lifelog_dir, day.strftime('%Y'))
     cur_month_dir = '%s/%s' % (cur_year_dir, day.strftime('%m'))
     time_stat_path = '%s/time_stat.md' % cur_month_dir
