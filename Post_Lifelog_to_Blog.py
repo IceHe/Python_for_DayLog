@@ -280,14 +280,14 @@ def post_time_stat_to_blog(day):
     ##############################
     # process Text Content
     ##############################
-    cur_month_last_day = cur_month_1st + timedelta(
-        days=calendar.monthrange(day.year, day.month)[1] - 1
+    next_month_1st_day = cur_month_1st + timedelta(
+        days=calendar.monthrange(day.year, day.month)[1]
     )
 
     c_Ym = day.strftime('%Y/%m')
 
     output = 'title: ' + note_title + '\n' \
-             + 'date: ' + cur_month_last_day.strftime('%Y-%m-%d %H:%M:%S') + '\n' \
+             + 'date: ' + next_month_1st_day.strftime('%Y-%m-%d %H:%M:%S') + '\n' \
              + 'toc: false\n' \
              + '---\n' \
              + '[返回月历 **Back to Month ^**](/lifelogs/' \
