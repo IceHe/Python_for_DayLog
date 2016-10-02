@@ -126,7 +126,7 @@ if __name__ == '__main__':
     ##############################
     # output Post
     ##############################
-    post_path = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/_posts/LATEST/%s.md' % note_name
+    post_path = '/Users/IceHe/Documents/Blog/icehe.me/source/_posts/LATEST/%s.md' % note_name
 
     with codecs.open(post_path, 'w', 'utf-8') as f:
         f.write(content)

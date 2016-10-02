@@ -60,7 +60,7 @@ def post_time_stat_to_blog(day):
     ##############################
     # output Post
     ##############################
-    lifelog_dir = '/Users/IceHe/Documents/Blog/icehe.blog.hexo/source/lifelogs'
+    lifelog_dir = '/Users/IceHe/Documents/Blog/icehe.me/source/lifelogs'
     cur_year_dir = lifelog_dir + '/' + day.strftime('%Y')
     cur_month_dir = cur_year_dir + '/' + day.strftime('%m')
     time_stat_path = '%s/time_stat.md' % cur_month_dir
