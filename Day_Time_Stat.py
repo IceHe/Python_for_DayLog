@@ -6,25 +6,26 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     from datetime import datetime, timedelta
+
     today = datetime.now()
+    target_day = (today - timedelta(days=1))
 
     import sys
     if len(sys.argv) > 1:
-        today = datetime.strptime(
+        target_day = datetime.strptime(
             sys.argv[1],
             '%m/%d/%y'
         )
-        print('Today =', today)
+        print('target_day =', target_day)
 
-    yesterday = (today - timedelta(days=1))
-    yesterday_str = yesterday.strftime('%y/%m/%d')
+    target_day_str = target_day.strftime('%y/%m/%d')
 
-    note_name = '%s stu spo' % yesterday_str
+    note_name = '%s stu spo' % target_day_str
 
     import random
     enex_path = '/Users/IceHe/Documents/Enex/statistics/%s_Day_Log_ori_%s_%s.enex' % (
-        yesterday_str.replace('/', '-'),
-        today.strftime('%H%M%S'),
+        target_day_str.replace('/', '-'),
+        target_day.strftime('%H%M%S'),
         str(random.randint(100, 999))
     )
 
@@ -50,12 +51,12 @@ if __name__ == '__main__':
     cursor = conn.cursor()
 
     sql = r'select * from day_log where date_ymd = "%s"' \
-          % yesterday.strftime('%y-%m-%d')
+          % target_day.strftime('%y-%m-%d')
 
     cursor.execute(sql)
     week_log = cursor.fetchall()
     if 0 != len(week_log):
-        print('The stat of yesterday has existed!')
+        print('The stat of target_day has existed!')
         cursor.close()
         conn.close()
         exit(1)
@@ -81,7 +82,7 @@ if __name__ == '__main__':
     ##############################
     import re
     matches = re.findall(
-        r'(?:<div><b>)(# Time Detail[\s\S]*?(?:\d\d\d\d睡</div>\n<div><br/></div>))?',
+        r'(?:<div><b>)(# Time Detail[\s\S]*?(?:\d\d\d\d睡</div>\n<div>))?',
         content,
         re.S
     )
@@ -318,7 +319,7 @@ if __name__ == '__main__':
           r'stu, stu_pct, spo, spo_pct, rd, rd_pct, ' \
           r'joy, joy_pct, mus, mus_pct, was, was_pct, ' \
           r'total_hours, created_time) values("%s"' \
-          % yesterday.strftime('%Y/%m/%d')
+          % target_day.strftime('%Y/%m/%d')
 
     for type in type_ary:
         sql += ', %s, %s' % (
@@ -343,7 +344,7 @@ if __name__ == '__main__':
     note_name_str = re.findall(r'(<title>.*?</title>)', content, re.S)[0]
 
     new_note_name = '<title>%s stu%s spo%s' % (
-        yesterday_str,
+        target_day_str,
         str(round(type_stat['学']['pct'])),
         str(round(type_stat['动']['pct']))
     )
@@ -388,7 +389,7 @@ if __name__ == '__main__':
 
     sql = r'update day_log set oth_data = "%s" where date_ymd = "%s"' % (
         discipline_json.replace('\\', '\\\\').replace('"', r'\"'),
-        yesterday.strftime('%Y-%m-%d')
+        target_day.strftime('%Y-%m-%d')
     )
     print(sql)
 
@@ -419,5 +420,5 @@ if __name__ == '__main__':
     print('Import Note:')
     os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_import.scpt "%s" "%s"' % (
         enex_import_path,
-        yesterday.strftime('%Y/%m')
+        target_day.strftime('%Y/%m')
     ))
