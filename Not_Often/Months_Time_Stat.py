@@ -44,7 +44,7 @@ if __name__ == '__main__':
     os.system('mysql.server start')
 
     import pymysql
-    conn = pymysql.connect(user='test', password='88887777', database='life_log')
+    conn = pymysql.connect(host='127.0.0.1', user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     while first_day < datetime(2015, 10, 1):

@@ -53,6 +53,7 @@ if __name__ == '__main__':
 
     import pymysql
     conn = pymysql.connect(
+        host='127.0.0.1',
         user='test',
         password='88887777',
         database='life_log'

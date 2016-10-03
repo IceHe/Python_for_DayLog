@@ -210,7 +210,7 @@ if __name__ == '__main__':
     os.system('mysql.server start')
 
     import pymysql
-    conn = pymysql.connect(user='test', password='88887777', database='life_log')
+    conn = pymysql.connect(host='127.0.0.1', user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'insert into day_log(date_ymd, stu, stu_pct, spo, spo_pct, rd, rd_pct, joy, joy_pct, mus, mus_pct, was, was_pct, total_hours, created_time) values("' \

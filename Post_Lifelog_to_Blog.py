@@ -49,6 +49,7 @@ def post_monthlog_to_blog(day, lifelog_dir):
 
     import pymysql
     conn = pymysql.connect(
+        host='127.0.0.1',
         user='test',
         password='88887777',
         database='life_log'
@@ -331,6 +332,7 @@ def post_time_stat_to_blog(day):
 
     import pymysql
     conn = pymysql.connect(
+        host='127.0.0.1',
         user='test',
         password='88887777',
         database='life_log'

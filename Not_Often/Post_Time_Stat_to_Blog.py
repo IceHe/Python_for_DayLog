@@ -85,7 +85,7 @@ def post_time_stat_to_blog(day):
     print(month_index_title)
 
     import pymysql
-    conn = pymysql.connect(user='test', password='88887777', database='life_log')
+    conn = pymysql.connect(host='127.0.0.1', user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = 'select stu_pct, spo_pct, was_pct from month_log where month_1st = "%s"' % day.strftime('%Y/%m/%d')

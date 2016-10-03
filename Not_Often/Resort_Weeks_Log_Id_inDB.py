@@ -6,7 +6,7 @@ __author__ = 'IceHe'
 if __name__ == '__main__':
 
     import pymysql
-    conn = pymysql.connect(user='test', password='88887777', database='life_log')
+    conn = pymysql.connect(host='127.0.0.1', user='test', password='88887777', database='life_log')
     cursor = conn.cursor()
 
     sql = r'select id, from_date from week_log order by from_date asc'
