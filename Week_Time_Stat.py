@@ -148,7 +148,7 @@ if __name__ == '__main__':
     print('enex_path:', enex_path)
 
     print('Export Note:')
-    cmd = 'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_enex_with_nbname.scpt "%s" "%s" "%s"' % (
+    cmd = 'osascript /Users/IceHe/Documents/AppleScript/Evernote/note_export_enex_with_nbname.scpt "%s stu" "%s" "%s"' % (
         note_name,
         month_log_at.strftime('%Y/%m'),
         enex_path
@@ -257,7 +257,7 @@ if __name__ == '__main__':
     print(note_name)
     print('Delete Note:')
     # 删除笔记操作，请注意！
-    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_delete_with_nbname_no_confirm.scpt "%s" "%s"' % (
+    os.system('osascript /Users/IceHe/Documents/AppleScript/Evernote/note_delete_with_nbname_no_confirm.scpt "%s stu" "%s"' % (
         note_name,
         month_log_at.strftime('%Y/%m')
     ))
