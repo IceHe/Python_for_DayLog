@@ -83,7 +83,7 @@ if __name__ == '__main__':
     ##############################
     import re
     matches = re.findall(
-        r'(?:<div><b>)(# Time Detail[\s\S]*?(?:\d\d\d\d睡</div>\n<div>))?',
+        r'(?:<div><b>)(# Time Detail[\s\S]*?(?:\d\d\d\d睡</div>))?',
         content,
         re.S
     )
