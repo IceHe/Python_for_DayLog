@@ -175,7 +175,7 @@ if __name__ == '__main__':
 
     import re
     ori_week_stat = re.findall(
-        r'(<div>Week %s</div>[\s\S]*?\n<div><br/></div>)' % (
+        r'(<div>Week %s</div>[\s\S]*?<div><br/></div>)' % (
             str(week_num),
         ),
         content,
