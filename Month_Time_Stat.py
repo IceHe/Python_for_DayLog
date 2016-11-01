@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
     import re
     ori_month_stat = re.findall(
-        r'(<div>Monthly<\/div>[\s\S]*?\n<div>总<\/div>)',
+        r'(<div>Monthly<\/div>[\s\S]*?<div>总<\/div>)',
         content,
         re.S
     )[0]
