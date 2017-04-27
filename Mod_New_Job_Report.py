@@ -14,9 +14,12 @@ if __name__ == '__main__':
     import codecs
 
     with codecs.open(job_report_path, 'r', 'utf-8') as f:
-        content = f.read()
+        raw_content = f.read()
 
-    content = content.replace(old_date_str, new_date_str)
+    content = raw_content.replace(old_date_str, new_date_str)
 
     with codecs.open(job_report_path, 'w', 'utf-8') as f:
         f.write(content)
+
+    if raw_content == content:
+        print('Replace error!')
